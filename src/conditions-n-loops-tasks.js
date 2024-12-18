@@ -87,8 +87,23 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+
+function isIsoscelesTriangle(...args) {
+  let answer = null;
+  const [a, b, c] = args;
+  for (let i = 0; i < args.length; i += 1) {
+    if (a + b > c && b + c > a && a + c > b) {
+      if (!answer) {
+        answer = Boolean(
+          args[args.length - 1] &&
+            (args[i] === args[i - 1] || args[i] === args[i - 2])
+        );
+      }
+    } else {
+      answer = false;
+    }
+  }
+  return answer;
 }
 
 /**
@@ -105,8 +120,32 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  let roman = '';
+  let number = num;
+
+  for (let i = 0; i < Math.floor(number / 10); i += 1) {
+    roman += 'X';
+  }
+  number %= 10;
+
+  if (number === 9) {
+    roman += 'IX';
+    return roman;
+  }
+  if (number >= 5) {
+    roman += 'V';
+    number -= 5;
+  } else if (number === 4) {
+    roman += 'IV';
+    return roman;
+  }
+
+  for (let i = 0; i < number; i += 1) {
+    roman += 'I';
+  }
+
+  return roman;
 }
 
 /**
@@ -243,8 +282,16 @@ function getIndexOf(str, letter) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+
+function isContainNumber(num, digit) {
+  let number = num;
+  for (let i = 0; number > 0; i += 1) {
+    if (number % 10 === digit) {
+      return true;
+    }
+    number = Math.floor(number / 10);
+  }
+  return false;
 }
 
 /**
